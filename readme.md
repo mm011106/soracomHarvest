@@ -34,14 +34,12 @@
   - CH2,3 : contPressure (コンテナ圧力)
   - CH4,5 : NC
   - CH6,7 : NC
-  - __PIN config__
-    - 19(MOSI),21(MISO),23(CLK),24(CE)
+  - __PIN config__ :  19(MOSI),21(MISO),23(CLK),24(CE)
 
 
 - 環境計測:BME280  I2C接続
 [Datasheet:BME280(switch science )](https://www.switch-science.com/catalog/2236/)
-  - __PIN config__
-    - 3(SD),5(SCK),1(V33),6(GND)
+  - __PIN config__ : 3(SD),5(SCK),1(V33),6(GND)
 
 
 - ステータス:GPIO
