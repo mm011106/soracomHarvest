@@ -30,18 +30,22 @@
 
 
 - ADC:MCP3208  SPI接続　　[Datasheet:MCP3208](http://ww1.microchip.com/downloads/en/DeviceDoc/21298e.pdf)
-  - CH0,1 : level (液面)
-  - CH2,3 : contPressure (コンテナ圧力)
-  - CH4,5 : NC
-  - CH6,7 : NC
-  - __PIN config__ :  19(MOSI),21(MISO),23(CLK),24(CE)
+  - 2.5V FS / diff input
+  - Input config
+    - CH0,1 : level (液面)　0~10V -> 0~2V
+    - CH2,3 : contPressure (コンテナ圧力) 1〜5V -> 0.2V〜1V
+    - CH4,5 : NC
+    - CH6,7 : NC
+  - __RasPi PIN config__ :  19(MOSI),21(MISO),23(CLK),24(CE)
 
 
-- 環境計測:BME280  I2C接続
+- 環境計測:BME280  I2C接続　　
 [Datasheet:BME280(switch science )](https://www.switch-science.com/catalog/2236/)
-  - __PIN config__ : 3(SD),5(SCK),1(V33),6(GND)
+  - __RasPi PIN config__ : 3(SD),5(SCK),1(V33),6(GND)
 
 
 - ステータス:GPIO
-
-どのIOを使うか未定。4bitぐらい。
+  - どのIOを使うか未定。4bitぐらい。
+    - 液面測定中　（液面センサがアクティブ）
+    - 注液中　（バルブが閉じている）
+    - リモコン状態（On:液面計動作/Off:液面系off=MEG計測中)
