@@ -26,11 +26,11 @@ interval = 18
 while True:
     temp = commands.getoutput("vcgencmd measure_temp").split('=')[1].split('\'')[0]
 
-    payload =     "{" + "\"level\": 50.x"          + ", "
+    payload =     "{" + "\"level\": 50.3"          + ", "
     payload = payload + "\"contPressure\": 500"    + ", "
-    payload = payload + "\"status\": 0xF"          + ", "
+    payload = payload + "\"status\": \"0xF\""          + ", "
     payload = payload + "\"temp\":" + temp         + ", "
-    payload = payload + "\"humid\": 30.x"          + ", "
+    payload = payload + "\"humid\": 30.1"          + ", "
     payload = payload + "\"atmPressure\": 1024 "
     payload = payload + "}"
     print time.time(), payload
