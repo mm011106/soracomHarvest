@@ -171,9 +171,9 @@ if __name__ == '__main__':
         payload =     "{" + "\"level\": 50.3"          + ", "
         payload = payload + "\"contPressure\": 500"    + ", "
         payload = payload + "\"status\": \"0xF\""          + ", "
-        payload = payload + "\"temp\":" + '{:.1f}'.format(bmeRead[0])         + ", "
-        payload = payload + "\"humid\":" + '{:.1f}'.format(bmeRead[2])          + ", "
-        payload = payload + "\"atmPressure\":" + '{:.0f}'.format(bmeRead[1])
+        payload = payload + "\"temp\":" + format(bmeRead[0])         + ", "
+        payload = payload + "\"humid\":" + format(bmeRead[2])          + ", "
+        payload = payload + "\"atmPressure\":" + format(bmeRead[1])
         payload = payload + "}"
         print time.time(), payload
 
