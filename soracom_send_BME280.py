@@ -71,9 +71,9 @@ def readData():
 	temp_raw = (data[3] << 12) | (data[4] << 4) | (data[5] >> 4)
 	hum_raw  = (data[6] << 8)  |  data[7]
 
-	readout = compensate_T(temp_raw)
-	readout = readout + compensate_P(pres_raw)
-	readout = readout + compensate_H(hum_raw)
+	readout = readout.append(compensate_T(temp_raw))
+	readout = readout.append(compensate_P(pres_raw))
+	readout = readout.append(compensate_H(hum_raw))
 	return readout
 
 def compensate_P(adc_P):
