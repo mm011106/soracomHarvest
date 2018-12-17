@@ -64,15 +64,17 @@ def get_calib_param():
 
 def readData():
 	data = []
+    readout = []
 	for i in range (0xF7, 0xF7+8):
 		data.append(bus.read_byte_data(i2c_address,i))
 	pres_raw = (data[0] << 12) | (data[1] << 4) | (data[2] >> 4)
 	temp_raw = (data[3] << 12) | (data[4] << 4) | (data[5] >> 4)
 	hum_raw  = (data[6] << 8)  |  data[7]
 
-	compensate_T(temp_raw)
-	compensate_P(pres_raw)
-	compensate_H(hum_raw)
+	readout = compensate_T(temp_raw)
+	readout = readout + compensate_P(pres_raw)
+	readout = readout + compensate_H(hum_raw)
+    return readout
 
 def compensate_P(adc_P):
 	global  t_fine
@@ -97,6 +99,7 @@ def compensate_P(adc_P):
 	pressure = pressure + ((v1 + v2 + digP[6]) / 16.0)
 
 	print "pressure : %7.2f hPa" % (pressure/100)
+    return pressure/100
 
 def compensate_T(adc_T):
 	global t_fine
@@ -104,7 +107,8 @@ def compensate_T(adc_T):
 	v2 = (adc_T / 131072.0 - digT[0] / 8192.0) * (adc_T / 131072.0 - digT[0] / 8192.0) * digT[2]
 	t_fine = v1 + v2
 	temperature = t_fine / 5120.0
-	print "temp : %-6.2f ℃" % (temperature)
+	print "temp : %-6.2f C" % (temperature)
+    return temperature
 
 def compensate_H(adc_H):
 	global t_fine
@@ -118,7 +122,8 @@ def compensate_H(adc_H):
 		var_h = 100.0
 	elif var_h < 0.0:
 		var_h = 0.0
-	print "hum : %6.2f ％" % (var_h)
+	print "hum : %6.2f RH％" % (var_h)
+    return var_h
 
 
 def setup():
@@ -137,8 +142,6 @@ def setup():
 	writeReg(0xF2,ctrl_hum_reg)
 	writeReg(0xF4,ctrl_meas_reg)
 	writeReg(0xF5,config_reg)
-
-
 
 
 def soraSend(hostName,portNumber,payload):
@@ -160,23 +163,21 @@ hostName='harvest.soracom.io'
 portNumber=8514
 
 if __name__ == '__main__':
-
-    readData()
-    
+    bmeRead=[]
     interval = 18
     while True:
-        temp = commands.getoutput("vcgencmd measure_temp").split('=')[1].split('\'')[0]
-
+        #temp = commands.getoutput("vcgencmd measure_temp").split('=')[1].split('\'')[0]
+        bmeRead = readData()
         payload =     "{" + "\"level\": 50.3"          + ", "
         payload = payload + "\"contPressure\": 500"    + ", "
         payload = payload + "\"status\": \"0xF\""          + ", "
-        payload = payload + "\"temp\":" + temp         + ", "
-        payload = payload + "\"humid\": 30.1"          + ", "
-        payload = payload + "\"atmPressure\": 1024 "
+        payload = payload + "\"temp\":" + bmeRead[0]         + ", "
+        payload = payload + "\"humid\":" + bmeRead[2]          + ", "
+        payload = payload + "\"atmPressure\":" +bmeRead[1]
         payload = payload + "}"
         print time.time(), payload
 
-        print soraSend(hostName,portNumber,payload)
+#        print soraSend(hostName,portNumber,payload)
 
 
         time.sleep(interval)
