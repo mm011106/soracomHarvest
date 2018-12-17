@@ -163,11 +163,12 @@ hostName='harvest.soracom.io'
 portNumber=8514
 
 if __name__ == '__main__':
-    bmeRead=[]
+    bmeRead=[0.00 , 0.00, 0.00]
     interval = 18
     while True:
         #temp = commands.getoutput("vcgencmd measure_temp").split('=')[1].split('\'')[0]
         bmeRead = readData()
+        print bmeRead
         temp = bmeRead[0]
         humid = bmeRead[2]
         pres = bmeRead[1]
