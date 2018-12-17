@@ -107,7 +107,7 @@ def compensate_T(adc_T):
 	v2 = (adc_T / 131072.0 - digT[0] / 8192.0) * (adc_T / 131072.0 - digT[0] / 8192.0) * digT[2]
 	t_fine = v1 + v2
 	temperature = t_fine / 5120.0
-	print "temp : %-6.2f C" % (temperature)
+    print "temp : %-6.2f C" % (temperature)
     return temperature
 
 def compensate_H(adc_H):
@@ -171,9 +171,9 @@ if __name__ == '__main__':
         payload =     "{" + "\"level\": 50.3"          + ", "
         payload = payload + "\"contPressure\": 500"    + ", "
         payload = payload + "\"status\": \"0xF\""          + ", "
-        payload = payload + "\"temp\":" + bmeRead[0]         + ", "
-        payload = payload + "\"humid\":" + bmeRead[2]          + ", "
-        payload = payload + "\"atmPressure\":" +bmeRead[1]
+        payload = payload + "\"temp\":" + '{:.1f}'.format(bmeRead[0])         + ", "
+        payload = payload + "\"humid\":" + '{:.1f}'.format(bmeRead[2])          + ", "
+        payload = payload + "\"atmPressure\":" + '{:.0f}'.format(bmeRead[1])
         payload = payload + "}"
         print time.time(), payload
 
