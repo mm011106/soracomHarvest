@@ -168,12 +168,15 @@ if __name__ == '__main__':
     while True:
         #temp = commands.getoutput("vcgencmd measure_temp").split('=')[1].split('\'')[0]
         bmeRead = readData()
+        temp = bmeRead[0]
+        humid = bmeRead[2]
+        pres = bmeRead[1]
         payload =     "{" + "\"level\": 50.3"          + ", "
         payload = payload + "\"contPressure\": 500"    + ", "
         payload = payload + "\"status\": \"0xF\""          + ", "
-        payload = payload + "\"temp\":" + format(bmeRead[0])         + ", "
-        payload = payload + "\"humid\":" + format(bmeRead[2])          + ", "
-        payload = payload + "\"atmPressure\":" + format(bmeRead[1])
+        payload = payload + "\"temp\":" + format(temp)         + ", "
+        payload = payload + "\"humid\":" + format(humid)          + ", "
+        payload = payload + "\"atmPressure\":" + format(pres)
         payload = payload + "}"
         print time.time(), payload
 
