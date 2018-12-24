@@ -180,7 +180,7 @@ if __name__ == '__main__':
         payload = payload + "}"
         print time.time(), payload
 
-        print soraSend(hostName,portNumber,payload)
+        #print soraSend(hostName,portNumber,payload)
 
 
         time.sleep(interval)

@@ -195,7 +195,7 @@ if __name__ == '__main__':
         payload = payload + "\"humid\":" + format(humid)          + ", "
         payload = payload + "\"atmPressure\":" + format(pres)
         payload = payload + "}"
-        logger.debug(time.time(), payload)
+        logger.debug('%f - %s', time.time(),payload)
 
         try:
             resultSend = soraSend(hostName,portNumber,payload)
