@@ -195,11 +195,11 @@ if __name__ == '__main__':
         payload = payload + "\"humid\":" + format(humid)          + ", "
         payload = payload + "\"atmPressure\":" + format(pres)
         payload = payload + "}"
-        print time.time(), payload
+        logger.debug(time.time(), payload)
 
         try:
             resultSend = soraSend(hostName,portNumber,payload)
-            logger.info('Sent: %s', resultSend)
+            logger.info('Result: %s', resultSend)
         except:
 #            print("send error !")
             logger.info('Error on sending data')
