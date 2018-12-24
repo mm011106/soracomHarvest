@@ -3,7 +3,7 @@
 # from smbus import SMBus
 # import time
 #
-# import bme280
+import bme280
 #
 # bus_number  = 1
 # i2c_address = 0x76
