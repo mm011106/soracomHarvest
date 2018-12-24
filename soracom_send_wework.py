@@ -6,9 +6,24 @@ import os
 import commands
 import time
 
+# logger setup
+import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+# create a file handler
+handler = logging.FileHandler('soracom.log')
+handler.setLevel(logging.INFO)
+
+# create a logging format
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+
+# add the handlers to the logger
+logger.addHandler(handler)
+
 
 from smbus import SMBus
-
 bus_number  = 1
 i2c_address = 0x76
 
@@ -151,6 +166,7 @@ def soraSend(hostName,portNumber,payload):
         soracom.sendall(payload)
     # ネットワークのバッファサイズは1024。サーバからの文字列を取得する
         ret=soracom.recv(1024)
+		logger.info('sent data')
     return ret
     #print(soracom.recv(1024))
 
@@ -160,6 +176,7 @@ get_calib_param()
 
 hostName='harvest.soracom.io'
 portNumber=8514
+resultSend=0
 
 if __name__ == '__main__':
     bmeRead=[0.00 , 0.00, 0.00]
@@ -181,8 +198,10 @@ if __name__ == '__main__':
         print time.time(), payload
 
         try:
-            print soraSend(hostName,portNumber,payload)
+            resultSend = soraSend(hostName,portNumber,payload)
+			logger.info('Sent: %d', resultSend)
         except:
-            print("send error !")
+#            print("send error !")
+			logger.info('Error on sending data')
 
         time.sleep(interval)
