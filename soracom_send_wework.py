@@ -166,7 +166,7 @@ def soraSend(hostName,portNumber,payload):
         soracom.sendall(payload)
     # ネットワークのバッファサイズは1024。サーバからの文字列を取得する
         ret=soracom.recv(1024)
-		logger.info('sent data')
+        logger.info('sent data')
     return ret
     #print(soracom.recv(1024))
 
@@ -199,9 +199,9 @@ if __name__ == '__main__':
 
         try:
             resultSend = soraSend(hostName,portNumber,payload)
-			logger.info('Sent: %d', resultSend)
+            logger.info('Sent: %d', resultSend)
         except:
 #            print("send error !")
-			logger.info('Error on sending data')
+            logger.info('Error on sending data')
 
         time.sleep(interval)
