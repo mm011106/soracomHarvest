@@ -22,6 +22,6 @@ bme280.get_calib_param()
 
 if __name__ == '__main__':
 	try:
-		readData()
+		bme280.readData()
 	except KeyboardInterrupt:
 		pass
