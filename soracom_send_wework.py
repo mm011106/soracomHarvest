@@ -200,8 +200,8 @@ if __name__ == '__main__':
         try:
             resultSend = soraSend(hostName,portNumber,payload)
             logger.info('Result: %s', resultSend)
-        except socket.error as msg:
-#            print("send error !")
+        except socket.gaierror as msg:
+#            print("send error !: gaierro :usl could not be solved.")
             logger.warning('Error on sending data: %s',msg)
         except :
             logger.warning('unexpected errror occurred.')
