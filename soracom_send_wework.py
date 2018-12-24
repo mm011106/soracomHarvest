@@ -9,11 +9,11 @@ import time
 # logger setup
 import logging
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.WARNING)
 
 # create a file handler
 handler = logging.FileHandler('soracom.log')
-handler.setLevel(logging.INFO)
+handler.setLevel(logging.WARNING)
 
 # create a logging format
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -200,8 +200,10 @@ if __name__ == '__main__':
         try:
             resultSend = soraSend(hostName,portNumber,payload)
             logger.info('Result: %s', resultSend)
-        except:
+        except socket.error as msg:
 #            print("send error !")
-            logger.info('Error on sending data')
+            logger.warning('Error on sending data: %s',msg)
+        except :
+            logger.warning('unexpected errror occurred.')
 
         time.sleep(interval)
