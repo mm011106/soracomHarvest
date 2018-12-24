@@ -176,7 +176,7 @@ get_calib_param()
 
 hostName='harvest.soracom.io'
 portNumber=8514
-resultSend=0
+resultSend=''
 
 if __name__ == '__main__':
     bmeRead=[0.00 , 0.00, 0.00]
@@ -199,7 +199,7 @@ if __name__ == '__main__':
 
         try:
             resultSend = soraSend(hostName,portNumber,payload)
-            logger.info('Sent: %d', resultSend)
+            logger.info('Sent: %s', resultSend)
         except:
 #            print("send error !")
             logger.info('Error on sending data')
