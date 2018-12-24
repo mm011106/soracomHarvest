@@ -1,4 +1,5 @@
 #coding: utf-8
+# reviced as a module
 
 from smbus import SMBus
 import time
