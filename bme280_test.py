@@ -41,7 +41,7 @@ if __name__ == '__main__':
     while True:
         #temp = commands.getoutput("vcgencmd measure_temp").split('=')[1].split('\'')[0]
         bmeRead = bme280.readData() #呼ばれる側がきちんと関数になっていないので修正する
-        print bmeRead
+        #print bmeRead
         temp = bmeRead[0]
         humid = bmeRead[2]
         pres = bmeRead[1]
@@ -52,7 +52,7 @@ if __name__ == '__main__':
         payload = payload + "\"humid\":" + format(humid)          + ", "
         payload = payload + "\"atmPressure\":" + format(pres)
         payload = payload + "}"
-
+        print payload
         logger.debug('%f - %s', time.time(),payload)
 
 #         try:
