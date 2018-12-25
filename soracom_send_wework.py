@@ -200,7 +200,7 @@ if __name__ == '__main__':
         try:
             resultSend = soraSend(hostName,portNumber,payload)
             logger.info('Result: %s', resultSend)
-        except socket.error as msg:
+        except socket.gaierror as msg:
 #            print("send error !")
             logger.warning('Error on sending data: %s',msg)
         except :

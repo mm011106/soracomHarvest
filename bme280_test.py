@@ -40,7 +40,7 @@ if __name__ == '__main__':
     interval = 18
     while True:
         #temp = commands.getoutput("vcgencmd measure_temp").split('=')[1].split('\'')[0]
-        bmeRead = bme280.readData()
+        bmeRead = bme280.readData() #呼ばれる側がきちんと関数になっていないので修正する
         print bmeRead
         temp = bmeRead[0]
         humid = bmeRead[2]
