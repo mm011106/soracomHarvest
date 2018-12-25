@@ -61,15 +61,18 @@ def get_calib_param():
 
 def readData():
 	data = []
+	result = []
 	for i in range (0xF7, 0xF7+8):
 		data.append(bus.read_byte_data(i2c_address,i))
 	pres_raw = (data[0] << 12) | (data[1] << 4) | (data[2] >> 4)
 	temp_raw = (data[3] << 12) | (data[4] << 4) | (data[5] >> 4)
 	hum_raw  = (data[6] << 8)  |  data[7]
 
-	compensate_T(temp_raw)
-	compensate_P(pres_raw)
-	compensate_H(hum_raw)
+	result.append(compensate_T(temp_raw))
+	result.append(compensate_P(pres_raw))
+	result.append(compensate_H(hum_raw))
+
+	return result
 
 def compensate_P(adc_P):
 	global  t_fine
@@ -93,7 +96,9 @@ def compensate_P(adc_P):
 	v2 = ((pressure / 4.0) * digP[7]) / 8192.0
 	pressure = pressure + ((v1 + v2 + digP[6]) / 16.0)
 
-	print "pressure : %7.2f hPa" % (pressure/100)
+    print "pressure : %7.2f hPa" % (pressure/100)
+    return pressure/100
+
 
 def compensate_T(adc_T):
 	global t_fine
@@ -102,6 +107,7 @@ def compensate_T(adc_T):
 	t_fine = v1 + v2
 	temperature = t_fine / 5120.0
 	print "temp : %-6.2f ℃" % (temperature)
+    return temperature
 
 def compensate_H(adc_H):
 	global t_fine
@@ -116,6 +122,7 @@ def compensate_H(adc_H):
 	elif var_h < 0.0:
 		var_h = 0.0
 	print "hum : %6.2f ％" % (var_h)
+    return var_h
 
 
 def setup():
@@ -141,7 +148,8 @@ get_calib_param()
 
 
 if __name__ == '__main__':
+	readout = []
 	try:
-		readData()
+		readout = readData()
 	except KeyboardInterrupt:
 		pass

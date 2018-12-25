@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 # create a file handler
-handler = logging.FileHandler('soracom.log')
+handler = logging.FileHandler('bme280_test.log')
 handler.setLevel(logging.INFO)
 
 # create a logging format
@@ -31,9 +31,9 @@ logger.addHandler(handler)
 
 
 
-hostName='harvest.soracom.io'
-portNumber=8514
-resultSend=''
+# hostName='harvest.soracom.io'
+# portNumber=8514
+# resultSend=''
 
 if __name__ == '__main__':
     bmeRead=[0.00 , 0.00, 0.00]
@@ -52,15 +52,16 @@ if __name__ == '__main__':
         payload = payload + "\"humid\":" + format(humid)          + ", "
         payload = payload + "\"atmPressure\":" + format(pres)
         payload = payload + "}"
+
         logger.debug('%f - %s', time.time(),payload)
 
-        try:
-            resultSend = soraSend(hostName,portNumber,payload)
-            logger.info('Result: %s', resultSend)
-        except socket.error as msg:
-#            print("send error !")
-            logger.warning('Error on sending data: %s',msg)
-        except :
-            logger.warning('unexpected errror occurred.')
+#         try:
+#             resultSend = soraSend(hostName,portNumber,payload)
+#             logger.info('Result: %s', resultSend)
+#         except socket.error as msg:
+# #            print("send error !")
+#             logger.warning('Error on sending data: %s',msg)
+#         except :
+#             logger.warning('unexpected errror occurred.')
 
         time.sleep(interval)
