@@ -1,10 +1,7 @@
 #coding: utf-8
-
+#/usr/bin/python
 
 import bme280
-
-# bme280.setup()
-# bme280.get_calib_param()
 
 import socket
 from contextlib import closing
@@ -16,11 +13,11 @@ import time
 # logger setup
 import logging
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.WARNING)
 
 # create a file handler
-handler = logging.FileHandler('bme280_test.log')
-handler.setLevel(logging.INFO)
+handler = logging.FileHandler('soracom_BME280.log')
+handler.setLevel(logging.WARNING)
 
 # create a logging format
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
