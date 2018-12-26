@@ -1,5 +1,5 @@
+#!/usr/bin/python2.7
 #coding: utf-8
-#/usr/bin/python
 
 import bme280
 
