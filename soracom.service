@@ -1,0 +1,13 @@
+#this file shoudl be located /lib/systemd/system/
+
+[Unit]
+Description = Soracom IoT edge device 
+
+[Service]
+ExecStart=/usr/bin/python2.7 /home/pi/documents/soracomHarvest/soracom_BME280.py
+Restart=always
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
+
