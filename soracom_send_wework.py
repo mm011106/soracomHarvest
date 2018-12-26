@@ -199,7 +199,7 @@ if __name__ == '__main__':
         # temp = bmeRead[0]
         # humid = bmeRead[2]
         # pres = bmeRead[1]
-        payload = '\"temp\":{0[0]:.1f} ,\"humid\":{0[2]:.1f} ,\"atmPressure\":{0[1]:.0f}'.format(bmeRead)
+        payload = '\"temp\":{0[0]:.3f} ,\"humid\":{0[2]:.3f} ,\"atmPressure\":{0[1]:.2f}'.format(bmeRead)
         payload = "{" + payload + "}"
         # payload =     "{" + "\"level\": 50.3"          + ", "
         # payload = payload + "\"contPressure\": 500"    + ", "
