@@ -29,7 +29,16 @@ handler.setFormatter(formatter)
 # add the handlers to the logger
 logger.addHandler(handler)
 
-
+def soraSend(hostName,portNumber,payload):
+    soracom = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    with closing(soracom):    # サーバを指定
+        soracom.connect((hostName, portNumber))
+    # サーバにメッセージを送る
+        soracom.sendall(payload)
+    # ネットワークのバッファサイズは1024。サーバからの文字列を取得する
+        ret=soracom.recv(1024)
+        logger.info('sent data')
+    return ret
 
 hostName='harvest.soracom.io'
 portNumber=8514
