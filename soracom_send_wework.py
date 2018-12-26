@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARNING)
 
 # create a file handler
-handler = logging.FileHandler('soracom.log')
+handler = logging.FileHandler('/var/log/soracom.log')
 handler.setLevel(logging.WARNING)
 
 # create a logging format

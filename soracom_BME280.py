@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARNING)
 
 # create a file handler
-handler = logging.FileHandler('soracom_BME280.log')
+handler = logging.FileHandler('/var/log/soracom_BME280.log')
 handler.setLevel(logging.WARNING)
 
 # create a logging format
@@ -50,9 +50,11 @@ if __name__ == '__main__':
         temp = bmeRead[0]
         humid = bmeRead[2]
         pres = bmeRead[1]
-        payload =     "{" + "\"level\": 50.3"          + ", "
-        payload = payload + "\"contPressure\": 500"    + ", "
-        payload = payload + "\"status\": \"0xF\""          + ", "
+        payload =     "{" 
+#        payload =     "{" + "\"level\": 50.3"          + ", "
+#        payload = payload + "\"contPressure\": 500"    + ", "
+#        payload = payload + "\"contPressure\": 500"    + ", "
+#        payload = payload + "\"status\": \"0xF\""          + ", "
         payload = payload + "\"temp\":" + format(temp)         + ", "
         payload = payload + "\"humid\":" + format(humid)          + ", "
         payload = payload + "\"atmPressure\":" + format(pres)
