@@ -1,5 +1,15 @@
 #!/usr/bin/python2.7
 #coding: utf-8
+#
+#  Environmental Measurement IoT device:
+#  use :BME280 sensor on I2C bus
+#       soracom air SIM and Ak-020 Dongle
+#       soracom harvest service, and it better to have Lagoon service.
+#  need bme280.py in the same directory as a reffered library.
+#
+#  send environmental data [temperture, humidity, pressure] every 20s
+#   format: {"temp":21.9,"humid":46.5,"atmPressure":1007.4}
+#
 
 import bme280
 
@@ -50,7 +60,7 @@ if __name__ == '__main__':
         temp = bmeRead[0]
         humid = bmeRead[2]
         pres = bmeRead[1]
-        payload =     "{" 
+        payload =     "{"
 #        payload =     "{" + "\"level\": 50.3"          + ", "
 #        payload = payload + "\"contPressure\": 500"    + ", "
 #        payload = payload + "\"contPressure\": 500"    + ", "

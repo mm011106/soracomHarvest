@@ -1,5 +1,14 @@
 #!/usr/bin/python2.7
 # -*- coding:utf-8 -*-
+#
+#  Environmental Measurement IoT device:
+#  use :BME280 sensor on I2C bus
+#       soracom air SIM and Ak-020 Dongle
+#       soracom harvest service, and it better to have Lagoon service.
+#
+#  send environmental data [temperture, humidity, pressure] every 20s
+#   format: {"temp":21.9,"humid":46.5,"atmPressure":1007.4}
+#
 
 import socket
 from contextlib import closing
@@ -187,16 +196,18 @@ if __name__ == '__main__':
         #temp = commands.getoutput("vcgencmd measure_temp").split('=')[1].split('\'')[0]
         bmeRead = readData()
 #        print bmeRead
-        temp = bmeRead[0]
-        humid = bmeRead[2]
-        pres = bmeRead[1]
-        payload =     "{" + "\"level\": 50.3"          + ", "
-        payload = payload + "\"contPressure\": 500"    + ", "
-        payload = payload + "\"status\": \"0xF\""          + ", "
-        payload = payload + "\"temp\":" + format(temp)         + ", "
-        payload = payload + "\"humid\":" + format(humid)          + ", "
-        payload = payload + "\"atmPressure\":" + format(pres)
-        payload = payload + "}"
+        # temp = bmeRead[0]
+        # humid = bmeRead[2]
+        # pres = bmeRead[1]
+        payload = '\"temp\":{0[0]:.1f} ,\"humid\":{0[2]:.1f} ,\"atmPressure\":{0[1]:.0f}'.format(bmeRead)
+        payload = "{" + payload + "}"
+        # payload =     "{" + "\"level\": 50.3"          + ", "
+        # payload = payload + "\"contPressure\": 500"    + ", "
+        # payload = payload + "\"status\": \"0xF\""          + ", "
+        # payload = payload + "\"temp\":" + format(temp)         + ", "
+        # payload = payload + "\"humid\":" + format(humid)          + ", "
+        # payload = payload + "\"atmPressure\":" + format(pres)
+        # payload = payload + "}"
         logger.debug('%f - %s', time.time(),payload)
 
         try:
