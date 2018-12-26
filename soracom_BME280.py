@@ -57,18 +57,20 @@ if __name__ == '__main__':
     while True:
         bmeRead = bme280.readData()
         # print bmeRead
-        temp = bmeRead[0]
-        humid = bmeRead[2]
-        pres = bmeRead[1]
-        payload =     "{"
+        # temp = bmeRead[0]
+        # humid = bmeRead[2]
+        # pres = bmeRead[1]
+        # payload =     "{"
 #        payload =     "{" + "\"level\": 50.3"          + ", "
 #        payload = payload + "\"contPressure\": 500"    + ", "
 #        payload = payload + "\"contPressure\": 500"    + ", "
 #        payload = payload + "\"status\": \"0xF\""          + ", "
-        payload = payload + "\"temp\":" + format(temp)         + ", "
-        payload = payload + "\"humid\":" + format(humid)          + ", "
-        payload = payload + "\"atmPressure\":" + format(pres)
-        payload = payload + "}"
+        payload = '\"temp\":{0[0]:.3f} ,\"humid\":{0[2]:.3f} ,\"atmPressure\":{0[1]:.2f}'.format(bmeRead)
+        payload = "{" + payload + "}"
+        # payload = payload + "\"temp\":" + format(temp)         + ", "
+        # payload = payload + "\"humid\":" + format(humid)          + ", "
+        # payload = payload + "\"atmPressure\":" + format(pres)
+        # payload = payload + "}"
         # print payload
         logger.debug('%f - %s', time.time(),payload)
 
