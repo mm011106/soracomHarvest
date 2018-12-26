@@ -31,17 +31,16 @@ logger.addHandler(handler)
 
 
 
-# hostName='harvest.soracom.io'
-# portNumber=8514
-# resultSend=''
+hostName='harvest.soracom.io'
+portNumber=8514
+resultSend=''
 
 if __name__ == '__main__':
     bmeRead=[0.00 , 0.00, 0.00]
     interval = 18
     while True:
-        #temp = commands.getoutput("vcgencmd measure_temp").split('=')[1].split('\'')[0]
-        bmeRead = bme280.readData() #呼ばれる側がきちんと関数になっていないので修正する
-        #print bmeRead
+        bmeRead = bme280.readData()
+        # print bmeRead
         temp = bmeRead[0]
         humid = bmeRead[2]
         pres = bmeRead[1]
@@ -52,16 +51,16 @@ if __name__ == '__main__':
         payload = payload + "\"humid\":" + format(humid)          + ", "
         payload = payload + "\"atmPressure\":" + format(pres)
         payload = payload + "}"
-        print payload
+        # print payload
         logger.debug('%f - %s', time.time(),payload)
 
-#         try:
-#             resultSend = soraSend(hostName,portNumber,payload)
-#             logger.info('Result: %s', resultSend)
-#         except socket.error as msg:
-# #            print("send error !")
-#             logger.warning('Error on sending data: %s',msg)
-#         except :
-#             logger.warning('unexpected errror occurred.')
+        try:
+            resultSend = soraSend(hostName,portNumber,payload)
+            logger.info('Result: %s', resultSend)
+        except socket.gaierror as msg:
+#            print("send error !")
+            logger.warning('Error on sending data: %s',msg)
+        except :
+            logger.warning('unexpected errror occurred.')
 
         time.sleep(interval)
